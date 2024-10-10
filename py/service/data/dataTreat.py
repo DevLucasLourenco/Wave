@@ -10,18 +10,18 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
         DataDeal.TYPE_DATA_ALLOWED = {'csv':DataDeal.__caseCSV,
                                       'xlsx':DataDeal.__caseXLSX,
                                       'json':DataDeal.__caseJSON}
-        self.fileReceived = Archive(fileReceived)
+        self.__fileReceived = Archive(fileReceived)
         
-    def getFile(self):
-        return self.fileReceived
+    def getFile(self) -> Archive:
+        return self.__fileReceived
 
     def readFile(self):
-        typeOf = self.fileReceived.getFileType()
+        typeOf = self.__fileReceived.getFileType()
         
         if typeOf in DataDeal.TYPE_DATA_ALLOWED.keys():
-            self.fileReceived.setDataframe(
+            self.__fileReceived.setDataframe(
                 DataDeal.TYPE_DATA_ALLOWED[typeOf](
-                    self.fileReceived.getDesignatedFile()
+                    self.__fileReceived.getDesignatedFile()
                     )
                 )
             
@@ -41,7 +41,7 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
 if __name__ == "__main__":
     data = DataDeal(r'123.xlsx')
     fileInstance = data.getFile()
-    
+
     data.readFile()
     print(fileInstance.getDataFrame())
     print(fileInstance.getData())
