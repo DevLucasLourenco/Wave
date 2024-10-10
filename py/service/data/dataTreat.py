@@ -2,8 +2,8 @@ import pandas as pd
 
 from py.service.data.archive import Archive
 
-# fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
-class DataDeal:
+
+class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
     TYPE_DATA_ALLOWED:dict
     
     def __init__(self, fileReceived) -> None:
