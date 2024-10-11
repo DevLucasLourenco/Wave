@@ -38,7 +38,6 @@ class Generate:
         doc_base = deepcopy(self.__baseDocx)
     
     
-    # mudar dicionário com o key_w/Delimiter
     def __getRecordsFromSameIndex(self, index) -> dict: 
         d_aux=dict()
         for keyHeader in self.__allKeys:
