@@ -108,8 +108,10 @@ class Archive:
             self.__DictWithData.update({k:{'type_column':typeOfValue,
                                            'data_column':v,
                                            'additional_parameters':{'bold':False,
-                                                                    'italian':False,
+                                                                    'italic':False,
+                                                                    'size':0,
                                                                     'font':'',
+                                                                    
                                                                     },
                                             }
                                         }
