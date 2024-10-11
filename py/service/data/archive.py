@@ -1,5 +1,5 @@
-import json
 import os
+import json
 import time
 import openpyxl
 import pandas as pd
@@ -13,7 +13,7 @@ class Archive:
         self.__Filename:str
         self.__FileType:str
         self.__FileMetaData:dict
-        self.__delimiter:str = ''
+        self.__Delimiter:str = ''
         self.__background_run()
 
 
@@ -47,37 +47,45 @@ class Archive:
         match self.__FileType:
             case 'csv':
                 df = pd.read_csv(self.__DesignatedFile)
+                
                 metadata.update({
                     "columns": df.columns.tolist(),
                     "num_rows": df.shape[0],
                     "num_columns": df.shape[1]
-                }
-            )
+                    }
+                )
 
             case 'xlsx':
                 wb = openpyxl.load_workbook(self.__DesignatedFile)
+                
                 metadata.update({
                     "num_sheets": len(wb.sheetnames),
                     "sheet_names": wb.sheetnames,
-                }
-            )
+                    "columns": {},
+                    }
+                )
+                
                 for sheet in wb.sheetnames:
                     ws = wb[sheet]
+                    columns = [cell.value for cell in ws[1]]
+                    metadata['columns'][sheet] = columns
                     metadata.update({
                         f"{sheet}_dimensions": ws.dimensions,
                         f"{sheet}_max_rows": ws.max_row,
                         f"{sheet}_max_columns": ws.max_column
                     }
                 )
+                    
 
             case 'json':
                 with open(self.__DesignatedFile, 'r') as file:
                     data = json.load(file)
+                
                 metadata.update({
                     "num_keys": len(data),
-                    "keys": list(data.keys())
-                }
-            )
+                    "columns": list(data.keys())
+                    }
+                )
     
             case _:
                 pass
@@ -91,7 +99,7 @@ class Archive:
 
 
     def __wrapWithDelimiter(self, key:str):
-        return f'{self.__delimiter}{key}{self.__delimiter}'
+        return f'{self.__Delimiter}{key}{self.__Delimiter}'
     
 
     def __refactoringDictToPatterns(self):
@@ -99,25 +107,23 @@ class Archive:
             typeOfValue = type(v[0])
             self.__DictWithData.update({k:{'type_column':typeOfValue,
                                            'data_column':v,
-                                           'additional_parameters':'',
+                                           'additional_parameters':{'bold':False,
+                                                                    'italian':False,
+                                                                    'font':'',
+                                                                    },
                                             }
                                         }
                                     )
-        
-        self.updateKeyWithDelimiter()
+        self.__updateKeyWithDelimiter()
 
-    def updateKeyWithDelimiter(self):
+
+    def __updateKeyWithDelimiter(self):
         for k in self.__DictWithData:
             self.__DictWithData[k]['key_w/Delimiter'] = self.__wrapWithDelimiter(k)
         
     
     def changeTypeParameters(self, keyColumn:str, typeTo):
         self.__DictWithData[keyColumn]['type_column'] = typeTo
-
-
-    def setDelimiters(self, newDelimiter:str):
-        self.__delimiter = str(newDelimiter)
-        self.updateKeyWithDelimiter()
 
 
     def getFileType(self) -> str:
@@ -151,3 +157,10 @@ class Archive:
     def setDataframe(self, df):
         self.__Dataframe = df
         self.__turnDataframeIntoDict()
+        
+        
+    def setDelimiters(self, newDelimiter:str):
+        self.__Delimiter = str(newDelimiter)
+        self.__updateKeyWithDelimiter()
+
+
