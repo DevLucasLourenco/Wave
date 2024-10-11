@@ -1,6 +1,6 @@
 import pandas as pd
 
-from py.service.data.archive import Archive
+from service.data.archive import Archive
 
 
 class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
@@ -32,7 +32,7 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
         return pd.read_csv(file, sep='\t') ## fazer possíveis escolhas para separador.
         
     def __caseXLSX(file):
-        return pd.read_excel(file)
+        return pd.read_excel(file) #dtype=
         
     def __caseJSON(file):
         return pd.read_json(file)        

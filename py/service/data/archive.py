@@ -13,6 +13,7 @@ class Archive:
         self.__Filename:str
         self.__FileType:str
         self.__FileMetaData:dict
+        self.__delimiter:str = ''
         self.__background_run()
 
 
@@ -89,14 +90,34 @@ class Archive:
         self.__refactoringDictToPatterns()
 
 
+    def __wrapWithDelimiter(self, key:str):
+        return f'{self.__delimiter}{key}{self.__delimiter}'
+    
+
     def __refactoringDictToPatterns(self):
         for k, v in self.__DictWithData.items():
             typeOfValue = type(v[0])
-            self.__DictWithData.update({k:{"type_column":typeOfValue, 'data_column':v, 'additional_parameters':''}})
-    
+            self.__DictWithData.update({k:{'type_column':typeOfValue,
+                                           'data_column':v,
+                                           'additional_parameters':'',
+                                            }
+                                        }
+                                    )
+        
+        self.updateKeyWithDelimiter()
+
+    def updateKeyWithDelimiter(self):
+        for k in self.__DictWithData:
+            self.__DictWithData[k]['key_w/Delimiter'] = self.__wrapWithDelimiter(k)
+        
     
     def changeTypeParameters(self, keyColumn:str, typeTo):
         self.__DictWithData[keyColumn]['type_column'] = typeTo
+
+
+    def setDelimiters(self, newDelimiter:str):
+        self.__delimiter = str(newDelimiter)
+        self.updateKeyWithDelimiter()
 
 
     def getFileType(self) -> str:
