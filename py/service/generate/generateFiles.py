@@ -23,18 +23,30 @@ class Generate:
         self.__archive = archive
         self._timeToGenerate:int
         self.__baseDocx = docx.Document(baseDocx)
-        
+        self.__allKeys :str = list(self.__archive.getMetaData()['columns'].values())[0]
+        self.__firstKey:str = self.__allKeys[0]
+    
     
     @deltaTime
     def generate(self):
-        ...        
-                
-        # for par in doc_base.paragraphs:
-        #     for key, value in 
+        for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_column']):
+            listageOfIndex = self.__getRecordsFromSameIndex(i)
+            print(listageOfIndex)
+            
     
-    def __replaceInfos(self):
+    def __replaceInfosAtDoc(self):
         doc_base = deepcopy(self.__baseDocx)
-        
+    
+    
+    # mudar dicionário com o key_w/Delimiter
+    def __getRecordsFromSameIndex(self, index) -> dict: 
+        d_aux=dict()
+        for keyHeader in self.__allKeys:
+                information = self.__archive.getData()[keyHeader]['data_column'][index]
+                KeyWithDelimiter = self.__archive.getData()[keyHeader]['key_w/Delimiter']
+                d_aux.update({KeyWithDelimiter:information})
+        return d_aux
+    
     
     def buildPDFs(self):
         ...
