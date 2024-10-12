@@ -34,7 +34,7 @@ class Generate:
             print(allRecordsFromIndex)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             
-            doc.save('teste.docx')
+            doc.save(f'teste{i}.docx')
             
             
             

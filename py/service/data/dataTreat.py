@@ -40,7 +40,7 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
         return pd.read_json(file, dtype=self.__dtypeToPD)
     
         
-    def getFile(self) -> Archive:
+    def getArchive(self) -> Archive:
         return self.__fileReceived
     
     

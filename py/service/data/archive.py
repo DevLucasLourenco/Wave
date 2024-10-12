@@ -1,8 +1,11 @@
 import os
 import json
 import time
+from typing import Literal
 import openpyxl
 import pandas as pd
+
+from service.data.To import To
 
 class Archive:
     
@@ -124,8 +127,9 @@ class Archive:
             self.__DictWithData[k]['key_w/Delimiter'] = self.__wrapWithDelimiter(k)
         
     
-    def changeTypeParameters(self, keyColumn:str, typeTo):
-        self.__DictWithData[keyColumn]['type_column'] = typeTo
+    def changeType(self, keyColumn:str, funcProvided:To):
+        for i, obj in enumerate(self.__DictWithData[keyColumn]['data_column']):
+            self.__DictWithData[keyColumn]['data_column'][i] = funcProvided(obj)
 
 
     def getFileType(self) -> str:
@@ -164,5 +168,4 @@ class Archive:
     def setDelimiters(self, newDelimiter:str):
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
-
 
