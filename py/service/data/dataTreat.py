@@ -45,4 +45,5 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
     
     
     def setDtype(self, dtype:dict):
+        "You must use again the method readFile() after use this one to confirm the dtype."
         self.__dtypeToPD = dtype
