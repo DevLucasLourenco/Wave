@@ -114,7 +114,6 @@ class Archive:
                                                                     'italic':False,
                                                                     'size':0,
                                                                     'font':'',
-                                                                    
                                                                     },
                                             }
                                         }
@@ -164,8 +163,11 @@ class Archive:
         self.__Dataframe = df
         self.__turnDataframeIntoDict()
         
-        
+            
     def setDelimiters(self, newDelimiter:str):
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 
+
+    def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "italic", "bold"], newValueToParameter):
+        self.__DictWithData[keyColumn]['additional_parameters'][parameterToChange] = newValueToParameter

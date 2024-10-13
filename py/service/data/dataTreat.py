@@ -46,5 +46,3 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
     
     def setDtype(self, dtype:dict):
         self.__dtypeToPD = dtype
-
-    

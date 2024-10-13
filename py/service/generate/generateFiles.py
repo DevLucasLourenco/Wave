@@ -17,7 +17,7 @@ def deltaTime(method):
     return wrapper
 
 
-class Generate:
+class Generate: # e se mdar pra Builder?
     
     def __init__(self, archive:Archive, baseDocx) -> None:
         self.__archive = archive
@@ -31,14 +31,11 @@ class Generate:
     def generate(self):
         for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_column']):
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
-            print(allRecordsFromIndex)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             
             doc.save(f'teste{i}.docx')
             
             
-            
-    
     def __replaceInfosAtDoc(self, records):
         doc_base = deepcopy(self.__baseDocx)
         self.__paragraph(records, doc_base)
@@ -51,18 +48,18 @@ class Generate:
             for key, value in records.items():
                 if key in para.text:
                     para.text = para.text.replace(key, str(value))
-                    # for run in para.runs:
-                    #     if self.__archive.getData()[self.__firstKey]['additional_parameters']['font']:
-                    #         run.font.name = self.__archive.getData()[self.__firstKey]['additional_parameters']['font']
+                    for run in para.runs:
+                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['font']:
+                            run.font.name = self.__archive.getData()[self.__firstKey]['additional_parameters']['font']
                             
-                    #     if self.__archive.getData()[self.__firstKey]['additional_parameters']['size'] != 0:
-                    #         run.font.size = Pt(self.__archive.getData()[self.__firstKey]['additional_parameters']['size'])
+                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['size'] != 0:
+                            run.font.size = Pt(self.__archive.getData()[self.__firstKey]['additional_parameters']['size'])
                             
-                    #     if self.__archive.getData()[self.__firstKey]['additional_parameters']['bold']:
-                    #         run.bold = True
+                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['bold']:
+                            run.bold = True
                             
-                    #     if self.__archive.getData()[self.__firstKey]['additional_parameters']['italic']:
-                    #         run.italic = True
+                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['italic']:
+                            run.italic = True
         
     
     def __table(self, records:dict, doc_base:docx.Document):
@@ -93,7 +90,6 @@ class Generate:
         for keyHeader in self.__allKeys:
             information = self.__archive.getData()[keyHeader]['data_column'][index]
             KeyWithDelimiter = self.__archive.getData()[keyHeader]['key_w/Delimiter']
-            
             d_aux.update({KeyWithDelimiter:information})
             
         return d_aux
