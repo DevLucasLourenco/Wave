@@ -1,29 +1,33 @@
 from service.data.To import To
-from service.data.dataTreat import DataDeal
-from service.generate.generateFiles import Generate
+from service.data.handler import DataHandler 
+from service.generate.generator import Builder
 
 if __name__=="__main__":
     
-    data = DataDeal(r'123.xlsx')
-    data.getArchive().setDelimiters('==')
+    handler = DataHandler (r'123.xlsx')
+    handler.getArchive().setDelimiter('==')
     
-    data.setDtype({"CPF":str})
+    handler.setDtype({"CPF":str})
     
-    data.readFile()
+    handler.readFile()
     
-    data.getArchive().changeType("DATA", To.Date().to_full_date)
-    data.getArchive().changeType("HORA", To.Hour().to_hh_mm)
+    handler.getArchive().changeType("DATA", To.Date().to_full_date)
+    handler.getArchive().changeType("HORA", To.Hour().to_hh_mm)
     
-    data.getArchive().setAdditionalParameters("DATA", "bold", True)
-    data.getArchive().setAdditionalParameters("DATA", "size", 10)
-    
+    handler.getArchive().setAdditionalParameters("NOME", "bold", True)
+    handler.getArchive().setAdditionalParameters("NOME", "italic", True)
+    # handler.getArchive().setAdditionalParameters("DATA", "bold", False)
+    # handler.getArchive().setAdditionalParameters("DATA", "size", 10)
      
     
-    gen = Generate(data.getArchive(), r'base teste.docx')
+    gen = Builder(handler.getArchive(), r'base teste.docx')
     gen.generate()
-
     
-    for each, values in data.getArchive().getData().items():
+    
+    
+    print(handler.getArchive().getData())    
+    print('\n')
+    for each, values in handler.getArchive().getData().items():
         print(each, values)
     
     print(gen.getTimeToGenerate())

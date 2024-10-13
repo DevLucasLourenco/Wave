@@ -162,9 +162,14 @@ class Archive:
     def setDataframe(self, df):
         self.__Dataframe = df
         self.__turnDataframeIntoDict()
-        
+    
+    
+    def getDelimiter(self):
+        return self.__Delimiter
+    
+    
             
-    def setDelimiters(self, newDelimiter:str):
+    def setDelimiter(self, newDelimiter:str):
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 

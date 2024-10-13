@@ -17,7 +17,7 @@ def deltaTime(method):
     return wrapper
 
 
-class Generate: # e se mdar pra Builder?
+class Builder: # e se mdar pra Builder?
     
     def __init__(self, archive:Archive, baseDocx) -> None:
         self.__archive = archive
@@ -47,20 +47,26 @@ class Generate: # e se mdar pra Builder?
         for para in doc_base.paragraphs:
             for key, value in records.items():
                 if key in para.text:
-                    para.text = para.text.replace(key, str(value))
                     for run in para.runs:
-                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['font']:
-                            run.font.name = self.__archive.getData()[self.__firstKey]['additional_parameters']['font']
+                        if key in run.text:
+                            primaryKey = self.__getPrimaryKeyFromKeyWDelimiter(key)
+                            run.text = run.text.replace(key, str(value))
                             
-                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['size'] != 0:
-                            run.font.size = Pt(self.__archive.getData()[self.__firstKey]['additional_parameters']['size'])
+                            additional_params = self.__archive.getData()[primaryKey]['additional_parameters']
                             
-                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['bold']:
-                            run.bold = True
-                            
-                        if self.__archive.getData()[self.__firstKey]['additional_parameters']['italic']:
-                            run.italic = True
-        
+                            if additional_params['font']:
+                                run.font.name = additional_params['font']
+                                
+                            if additional_params['size'] != 0:
+                                run.font.size = Pt(additional_params['size'])
+                                
+                            if additional_params['bold']:
+                                run.bold = True
+                                
+                            if additional_params['italic']:
+                                run.italic = True
+
+                
     
     def __table(self, records:dict, doc_base:docx.Document):
         for table in doc_base.tables:
@@ -69,21 +75,27 @@ class Generate: # e se mdar pra Builder?
                     for key, value in records.items():
                         if key in cell.text:
                             cell.text = cell.text.replace(key, str(value))
-                            # for para in cell.paragraphs:
-                            #     for run in para.runs:
-                            #         if self.__archive.getData()[self.__firstKey]['additional_parameters']['font']:
-                            #             run.font.name = self.__archive.getData()[self.__firstKey]['additional_parameters']['font']
+                            for para in cell.paragraphs:
+                                for run in para.runs:
+                                    primaryKey = self.__getPrimaryKeyFromKeyWDelimiter(key)
+                                    additional_params = self.__archive.getData()[primaryKey]['additional_parameters']
+                                    
+                                    if additional_params['font']:
+                                        run.font.name = additional_params['font']
                                         
-                            #         if self.__archive.getData()[self.__firstKey]['additional_parameters']['size'] != 0:
-                            #             run.font.size = Pt(self.__archive.getData()[self.__firstKey]['additional_parameters']['size'])
+                                    if additional_params['size'] != 0:
+                                        run.font.size = Pt(additional_params['size'])
                                         
-                            #         if self.__archive.getData()[self.__firstKey]['additional_parameters']['bold']:
-                            #             run.bold = True
+                                    if additional_params['bold']:
+                                        run.bold = True
                                         
-                            #         if self.__archive.getData()[self.__firstKey]['additional_parameters']['italic']:
-                            #             run.italic = True
+                                    if additional_params['italic']:
+                                        run.italic = True
+
                                                 
-                        
+    def __getPrimaryKeyFromKeyWDelimiter(self, KeyWDelimiter:str):
+            return KeyWDelimiter.strip(self.__archive.getDelimiter())
+    
                         
     def __getRecordsFromSameIndex(self, index) -> dict: 
         d_aux=dict()

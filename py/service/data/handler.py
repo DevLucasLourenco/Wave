@@ -3,11 +3,11 @@ import pandas as pd
 from service.data.archive import Archive
 
 
-class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
+class DataHandler: # fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
     TYPE_DATA_ALLOWED:dict
     
     def __init__(self, fileReceived) -> None:
-        DataDeal.TYPE_DATA_ALLOWED = {'csv':self.__caseCSV,
+        DataHandler.TYPE_DATA_ALLOWED = {'csv':self.__caseCSV,
                                       'xlsx':self.__caseXLSX,
                                       'json':self.__caseJSON}
         self.__fileReceived = Archive(fileReceived)
@@ -17,14 +17,14 @@ class DataDeal: # fazer teste de quando nao estiver a mesma quantidade nas colun
     def readFile(self):
         typeOf = self.__fileReceived.getFileType()
         
-        if typeOf in DataDeal.TYPE_DATA_ALLOWED.keys():
+        if typeOf in DataHandler.TYPE_DATA_ALLOWED.keys():
             self.__fileReceived.setDataframe(
-                DataDeal.TYPE_DATA_ALLOWED[typeOf](
+                DataHandler.TYPE_DATA_ALLOWED[typeOf](
                     self.__fileReceived.getDesignatedFile()
                     )
                 )
             
-        elif typeOf not in DataDeal.TYPE_DATA_ALLOWED.keys():
+        elif typeOf not in DataHandler.TYPE_DATA_ALLOWED.keys():
             raise KeyError('Non Allowed Extension')
 
     
