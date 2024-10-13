@@ -1,23 +1,36 @@
-from datetime import datetime
-import time
-from typing import Literal
+import locale
 import pandas as pd
+from typing import Literal
+from datetime import datetime
 
 
 # recurso de idioma
 
 class To:
+    LANG:str=''
+    
+    @staticmethod
+    def changeLanguage(langTo:Literal['pt_BR', 'es_ES', 'en_US', 'fr_FR']):
+        To.LANG = langTo
+    
+    @staticmethod
+    def __applyLang():
+        if To.LANG:
+            locale.setlocale(locale.LC_TIME, To.LANG)
     
     @staticmethod
     def Date():
+        To.__applyLang()
         return _Date()
     
     @staticmethod    
     def Hour():
+        To.__applyLang()
         return _Hour()
     
     @staticmethod
     def Money():
+        To.__applyLang()
         return _Money()
 
 
@@ -91,11 +104,30 @@ class _Date():
     def to_full_date(OBJECT:pd.Timestamp):
         "Full Date - DayWeek, Day Month Year"
         if isinstance(OBJECT, pd.Timestamp):
-            return OBJECT.strftime('%A, %d %B %Y')
+            return OBJECT.strftime('%A, %d %B %Y').title()
         raise TypeError("Type Non Allowed. Only pd.Timestamp (e.g.: Timestamp('2024-01-01 00:00:00'))")
 
-    
+    @staticmethod
+    def to_dd_MM_yyyy_in_full(OBJECT:pd.Timestamp):
+        "dd MM yyyy"
+        if isinstance(OBJECT, pd.Timestamp):
+            return OBJECT.strftime('%d %B %Y').title()
+        raise TypeError("Type Non Allowed. Only pd.Timestamp (e.g.: Timestamp('2024-01-01 00:00:00'))")
+
+    @staticmethod
+    def to_personalizedFormat(OBJECT:pd.Timestamp, formatPersonalized:str):
+        """Personalized\n\nUse Datetime format. (e.g.: '%d/%B/%Y')\n\nTo use this feature, you must have to follow this logic, e.g.:\n\n
+        handler = DataHandler (r'test.xlsx')\n
+        handler.getArchive().changeType(keyColumn="NAME", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))"""
         
+        if isinstance(OBJECT, pd.Timestamp):
+            if isinstance(formatPersonalized, str):
+                return OBJECT.strftime(formatPersonalized)
+            else:
+                raise TypeError("Only str is allowed.")
+        raise TypeError("Type Non Allowed. Only pd.Timestamp (e.g.: Timestamp('2024-01-01 00:00:00'))")
+        
+    
 class _Hour:
     
     @staticmethod
