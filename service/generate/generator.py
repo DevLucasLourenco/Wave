@@ -33,7 +33,7 @@ class Builder: # e se mdar pra Builder?
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             
-            doc.save(f'teste{i}.docx')
+            doc.save(f'teste{i}.docx') # remover para colocar uma função de salvar
             
             
     def __replaceInfosAtDoc(self, records):
