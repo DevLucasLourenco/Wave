@@ -4,15 +4,13 @@ from typing import Literal
 from datetime import datetime
 
 
-# recurso de idioma
-
 class To:
     """Once changed, you cannot change the same Key"""
     
     LANG:str=''
     
     @staticmethod
-    def changeLanguage(langTo:Literal['pt_BR', 'es_ES', 'en_US', 'fr_FR']):
+    def languageTo(langTo:Literal['pt_BR', 'es_ES', 'en_US', 'fr_FR']):
         To.LANG = langTo
     
     @staticmethod
@@ -191,20 +189,3 @@ class _Money:
         if isinstance(OBJECT, float) or isinstance(OBJECT, int): 
             return f"R$ {float(OBJECT):_.2f}".replace('.',',').replace("_",".")
         raise TypeError("Type Non Allowed. Only float or int")
-
-
-
-if __name__=="__main__":
-    date = pd.Timestamp(day=12, month=10, year=2024)
-    
-    print(To.Date().to_dd_MM(date))
-    
-    current_time = datetime.now()
-    print(To.Hour().to_hh_mm(current_time))
-    
-    print(To.Money().to_brl(2349))
-    print(To.Money().to_dollars(2349.60))
-    
-    
-    
-    

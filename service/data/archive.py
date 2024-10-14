@@ -64,14 +64,14 @@ class Archive:
                 metadata.update({
                     "num_sheets": len(wb.sheetnames),
                     "sheet_names": wb.sheetnames,
-                    "columns": {},
+                    "columns": list(),
                     }
                 )
                 
                 for sheet in wb.sheetnames:
                     ws = wb[sheet]
                     columns = [cell.value for cell in ws[1]]
-                    metadata['columns'][sheet] = columns
+                    metadata['columns'].extend(columns)
                     metadata.update({
                         f"{sheet}_dimensions": ws.dimensions,
                         f"{sheet}_max_rows": ws.max_row,
@@ -128,10 +128,11 @@ class Archive:
         
     
     def changeType(self, keyColumn:str, funcProvided:To):
+        """This function can receive an lambda function to be used. Acess the github to check how to do a personalizad return"""
+        
         for i, obj in enumerate(self.__DictWithData[keyColumn]['data_column']):
             self.__DictWithData[keyColumn]['data_column'][i] = funcProvided(obj)
         self.__DictWithData[keyColumn]['type_column'] = type(self.__DictWithData[keyColumn]['data_column'][0])
-        
 
 
     def getFileType(self) -> str:
@@ -172,7 +173,7 @@ class Archive:
     
             
     def setDelimiter(self, newDelimiter:str):
-        """This function will fill both side of the keys. \n\n(e.g.: If you pass '++" as newDelimiter, it will become ++KeyHere++)"""
+        """This function will fill both side of the keys. \n\n(e.g.: If you pass '++" as newDelimiter, it will become >>> ++KeyHere++)"""
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 

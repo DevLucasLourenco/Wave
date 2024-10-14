@@ -15,7 +15,6 @@ class PreRequisitesGODS:
         packages = ['openpyxl', 'pandas', 'python-docx']
         for package in packages:
             cls.__check_and_install(package)
-        print("Todos os pré-requisitos foram verificados e instalados.")
 
 if __name__ == "__main__":
     PreRequisitesGODS.VerifyRequirements()

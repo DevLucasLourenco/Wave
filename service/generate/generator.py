@@ -28,7 +28,7 @@ class Builder:
         self.__docsGenerated:list[docx.Document]
         self._timeToGenerate:int
         self.__baseDocx = docx.Document(baseDocx)
-        self.__allKeys :str = list(self.__archive.getMetaData()['columns'].values())[0]
+        self.__allKeys :str = list(self.__archive.getMetaData()['columns'])
         self.__firstKey:str = self.__allKeys[0]
 
             
