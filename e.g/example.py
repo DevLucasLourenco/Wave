@@ -1,12 +1,6 @@
-from preRequisite.preRequisites import PreRequisitesGODS
-from service.data.To import To
-from service.data.handler import DataHandler 
-from service.generate.generator import Builder
 
 if __name__=="__main__":
-    # PreRequisitesGODS.VerifyRequirements()
-    
-    handler = DataHandler(r'e.g/bd.xlsx')
+    handler = DataHandler(r'bd.xlsx')
     
     handler.getArchive().setDelimiter('==')
     handler.setDtype({"CPF":str})
@@ -20,18 +14,14 @@ if __name__=="__main__":
     handler.getArchive().setAdditionalParameters("DATE", "bold", True)
     
     
-    build = Builder(handler.getArchive(), r'e.g/doc.docx')
+    build = Builder(handler.getArchive(), r'doc.docx')
     build.generate()
     build.saveAs(textAtFile='DOCS/{} - Example How-To - {}', keyColumn=['DATE', 'NAME'])
     
+    print(handler.getArchive().getData())
+    print('\n')
+    for each, values in handler.getArchive().getData().items():
+        print(each, values)
     
-    # print(handler.getArchive().getData())
-    # print('\n')
-    # for each, values in handler.getArchive().getData().items():
-    #     print(each, values)
-    
-    # print(build.getTimeToGenerate())
-    
-    
-    # zippar arquivos
+    print(build.getTimeToGenerate())
     

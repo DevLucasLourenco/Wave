@@ -167,9 +167,9 @@ class Archive:
     def getDelimiter(self):
         return self.__Delimiter
     
-    
             
     def setDelimiter(self, newDelimiter:str):
+        """This function will fill both side of the keys. \n\n(e.g.: If you pass '++" as newDelimiter, it will become ++KeyHere++)"""
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 

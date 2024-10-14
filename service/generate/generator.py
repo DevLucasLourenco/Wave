@@ -1,11 +1,14 @@
+import os
 import time
 import docx
+
 from copy import deepcopy
 
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
 from service.data.archive import Archive
+
 
 
 def deltaTime(method):
@@ -17,24 +20,17 @@ def deltaTime(method):
     return wrapper
 
 
-class Builder: # e se mdar pra Builder?
+
+class Builder:
     
     def __init__(self, archive:Archive, baseDocx) -> None:
         self.__archive = archive
+        self.__docsGenerated:list[docx.Document]
         self._timeToGenerate:int
         self.__baseDocx = docx.Document(baseDocx)
         self.__allKeys :str = list(self.__archive.getMetaData()['columns'].values())[0]
         self.__firstKey:str = self.__allKeys[0]
-    
-    
-    @deltaTime
-    def generate(self):
-        for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_column']):
-            allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
-            doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
-            
-            doc.save(f'teste{i}.docx') # remover para colocar uma função de salvar
-            
+
             
     def __replaceInfosAtDoc(self, records):
         doc_base = deepcopy(self.__baseDocx)
@@ -49,6 +45,7 @@ class Builder: # e se mdar pra Builder?
                 if key in para.text:
                     for run in para.runs:
                         if key in run.text:
+                            
                             primaryKey = self.__getPrimaryKeyFromKeyWDelimiter(key)
                             run.text = run.text.replace(key, str(value))
                             
@@ -65,7 +62,6 @@ class Builder: # e se mdar pra Builder?
                                 
                             if additional_params['italic']:
                                 run.italic = True
-
                 
     
     def __table(self, records:dict, doc_base:docx.Document):
@@ -97,7 +93,7 @@ class Builder: # e se mdar pra Builder?
             return KeyWDelimiter.strip(self.__archive.getDelimiter())
     
                         
-    def __getRecordsFromSameIndex(self, index) -> dict: 
+    def __getRecordsFromSameIndex(self, index) -> dict:
         d_aux=dict()
         for keyHeader in self.__allKeys:
             information = self.__archive.getData()[keyHeader]['data_column'][index]
@@ -105,13 +101,57 @@ class Builder: # e se mdar pra Builder?
             d_aux.update({KeyWithDelimiter:information})
             
         return d_aux
-    
-    
-    def buildPDFs(self):
+        
+        
+    def __buildPDFs(self):
         ...
+    
+    
+    def __verifyPossibilityOfDir(self, txt):
+        directory = os.path.dirname(txt)
+        if not os.path.exists(directory):
+            try:
+                os.makedirs(directory)
+            except FileNotFoundError as e:
+                pass
+
+
+    def __getValuesToStringBuilder(self, keys, index):
+        listage = list()
+        for k in keys:
+            listage.append(self.__archive.getData()[k]['data_column'][index])
+        return listage
+        
+    
+    @deltaTime
+    def generate(self):
+        self.__docsGenerated:list = list()
+        for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_column']):
+            allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
+            doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
+            self.__docsGenerated.append(doc)
+        
+        
+    def saveAs(self, textAtFile:str, keyColumn:list[str]=[]):
+        """You can easly instruct a format string.\n\ne.g.:
+        build = Builder(handler.getArchive(), r'example.docx')\n\n
+        build.generate()\n\n
+        build.saveAs(textAtFile='{} - Example How-To - {}', keyColumn=['DATA', 'NOME'])"""
+        
+        if self.__docsGenerated:
+            for i, doc in enumerate(self.__docsGenerated):
+                valuesToIncrease = self. __getValuesToStringBuilder(keyColumn, i)
+                
+                stringBuilder = textAtFile.format(*valuesToIncrease)+'.docx' if not ".docx" in textAtFile else textAtFile.format(*valuesToIncrease)
+                self.__verifyPossibilityOfDir(stringBuilder)
+                doc.save(stringBuilder)
+                
+        else:
+            raise RuntimeError('There is no document generated. Should not you generate first?')
     
     
     def getTimeToGenerate(self):
         if self._timeToGenerate:
             return self._timeToGenerate
+        
         

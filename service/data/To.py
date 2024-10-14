@@ -7,6 +7,8 @@ from datetime import datetime
 # recurso de idioma
 
 class To:
+    """Once changed, you cannot change the same Key"""
+    
     LANG:str=''
     
     @staticmethod
