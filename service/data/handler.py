@@ -37,7 +37,7 @@ class DataHandler: # fazer teste de quando nao estiver a mesma quantidade nas co
 
 
     def __caseJSON(self, file):
-        return pd.read_json(file, dtype=self.__dtypeToPD).astype(str)
+        return pd.read_json(file, dtype=self.__dtypeToPD, convert_dates=False).astype(str)
     
         
     def getArchive(self) -> Archive:

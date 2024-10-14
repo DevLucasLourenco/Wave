@@ -4,31 +4,21 @@ from service.data.handler import DataHandler
 from service.generate.generator import Builder
 
 if __name__=="__main__":
-    
-    def changeYYandDD(date):
-        y, m, d = date.split('-')
-        y,d=y,d
-        text = '/'.join([d,m,y])
-        print(text)
-        return text
-        
-    
     # PreRequisitesGODS.VerifyRequirements()
     
-    # handler = DataHandler(r'e.g/bd.xlsx')
-    handler = DataHandler(r'e.g/bd.json')
+    handler = DataHandler(r'e.g/bd.xlsx')
+    # handler = DataHandler(r'e.g/bd.json')
     
     handler.getArchive().setDelimiter('==')
-    handler.setDtype({"CPF":str})
+    handler.setDtype({"CPF":str, "DATA":str})
     handler.readFile()
     
     
     To.languageTo('pt_BR')
-    handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: changeYYandDD(x))
-    # handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+    handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
     # handler.getArchive().changeType(keyColumn="DATE", funcProvided=To.Date().to_dd_MM_yyyy_in_full)
     
-    # handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
+    handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
     handler.getArchive().setAdditionalParameters("NAME", "bold", True)
     handler.getArchive().setAdditionalParameters("DATE", "bold", True)
     
@@ -46,5 +36,5 @@ if __name__=="__main__":
     print(build.getTimeToGenerate())
     
     # zippar arquivos
-    # resolver o problema de 12/03/2024 ao invpes de 03/12/2024. como fzr entender
+    
     
