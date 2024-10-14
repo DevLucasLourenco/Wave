@@ -108,6 +108,7 @@ class Archive:
     def __refactoringDictToPatterns(self):
         for k, v in self.__DictWithData.items():
             typeOfValue = type(v[0])
+            
             self.__DictWithData.update({k:{'type_column':typeOfValue,
                                            'data_column':v,
                                            'additional_parameters':{'bold':False,
@@ -129,6 +130,8 @@ class Archive:
     def changeType(self, keyColumn:str, funcProvided:To):
         for i, obj in enumerate(self.__DictWithData[keyColumn]['data_column']):
             self.__DictWithData[keyColumn]['data_column'][i] = funcProvided(obj)
+        self.__DictWithData[keyColumn]['type_column'] = type(self.__DictWithData[keyColumn]['data_column'][0])
+        
 
 
     def getFileType(self) -> str:

@@ -25,12 +25,12 @@ if __name__=="__main__":
     build.saveAs(textAtFile='DOCS/{} - Example How-To - {}', keyColumn=['DATE', 'NAME'])
     
     
-    # print(handler.getArchive().getData())
-    # print('\n')
-    # for each, values in handler.getArchive().getData().items():
-    #     print(each, values)
+    print(handler.getArchive().getData())
+    print('\n')
+    for each, values in handler.getArchive().getData().items():
+        print(each, values)
     
-    # print(build.getTimeToGenerate())
+    print(build.getTimeToGenerate())
     
     
     # zippar arquivos
