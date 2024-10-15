@@ -53,7 +53,7 @@ class Archive:
                 df = pd.read_csv(self.__DesignatedFile)
                 
                 metadata.update({
-                    "columns": df.columns.tolist(),
+                    "columns": df.columns.tolist()[0].split(';'),
                     "num_rows": df.shape[0],
                     "num_columns": df.shape[1]
                     }

@@ -1,3 +1,8 @@
 # GSDA-310
- Gerenciador Sistemizado de Documentos Automáticos
- Gerador Sistemizado de Distribuição de Arquivos
+GSDA_GODS
+
+GSDA
+Gerenciados Sistemizado de Distribuição Automático.
+
+GODS
+Gerador Orquestrado de Dados Sistemáticos

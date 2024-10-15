@@ -29,7 +29,7 @@ class DataHandler: # fazer teste de quando nao estiver a mesma quantidade nas co
 
     
     def __caseCSV(self, file):
-        return pd.read_csv(file, dtype=self.__dtypeToPD, sep='\t') ## fazer possíveis escolhas para separador.
+        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=';') ## fazer possíveis escolhas para separador.
 
 
     def __caseXLSX(self, file):
