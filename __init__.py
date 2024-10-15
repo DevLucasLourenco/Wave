@@ -40,4 +40,5 @@ if __name__=="__main__":
     
     print(build.getTimeToGenerate())
     # construir erros personalizados para cada situação
+    # mudar validações de To.Date, To.Money e To.Hour
     

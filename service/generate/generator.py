@@ -158,7 +158,7 @@ class Builder:
         """You can easly instruct a format string.\n\ne.g.:
         build = Builder(handler.getArchive(), r'example.docx')\n\n
         build.generate()\n\n
-        build.saveAs(textAtFile='DOCS/{} - Example How-To - {}', keyColumn=['DATA', 'NOME'])"""
+        build.saveAs(textAtFile='DOCS/{} - Example How-To - {}', keyColumn=['DATA', 'NOME'], ZipFile=True, saveLocally=True)"""
         
         if self.__archive.getFilesGenerated():
             self.__listageStringBuilt.clear()
