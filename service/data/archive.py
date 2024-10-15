@@ -17,6 +17,7 @@ class Archive:
         self.__FileType:str
         self.__FileMetaData:dict
         self.__Delimiter:str = ''
+        self.__FilesGenerated:list = list()
         self.__background_run()
 
 
@@ -171,9 +172,13 @@ class Archive:
     def getDelimiter(self):
         return self.__Delimiter
     
+    
+    def getFilesGenerated(self):
+        return self.__FilesGenerated    
+
             
     def setDelimiter(self, newDelimiter:str):
-        """This function will fill both side of the keys. \n\n(e.g.: If you pass '++" as newDelimiter, it will become >>> ++KeyHere++)"""
+        """This function will fill both side of the keys. \n\n(e.g.: If you pass '==' as newDelimiter, it will become >>> ==KeyHere==)"""
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 

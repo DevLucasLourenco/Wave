@@ -18,14 +18,16 @@ if __name__=="__main__":
     handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
     # handler.getArchive().changeType(keyColumn="DATE", funcProvided=To.Date().to_dd_MM_yyyy_in_full)
     
-    handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
+    # handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
     handler.getArchive().setAdditionalParameters("NAME", "bold", True)
     handler.getArchive().setAdditionalParameters("DATE", "bold", True)
     
     
     build = Builder(handler.getArchive(), r'e.g/doc.docx')
     build.generate()
-    build.saveAs(textAtFile='DOCS/{} - Example How-To', keyColumn=['NAME'])
+    build.saveAs(textAtFile='DOCS/{} - Example How-To',
+                 keyColumn=['NAME'], ZipFile=True, 
+                 saveLocally=False)
     
     
     print(handler.getArchive().getData())
@@ -35,6 +37,6 @@ if __name__=="__main__":
     
     print(build.getTimeToGenerate())
     
-    # zippar arquivos
+    # tratar quando for csv agora
     
     
