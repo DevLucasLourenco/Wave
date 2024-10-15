@@ -39,4 +39,5 @@ if __name__=="__main__":
         print(each, values)
     
     print(build.getTimeToGenerate())
+    # construir erros personalizados para cada situação
     

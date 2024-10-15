@@ -178,7 +178,7 @@ class Archive:
 
             
     def setDelimiter(self, newDelimiter:str):
-        """This function will fill both side of the keys. \n\n(e.g.: If you pass '==' as newDelimiter, it will become >>> ==KeyHere==)"""
+        """This function fills both side of the keys. \n\n(e.g.: If you pass '==' as newDelimiter, it becomes >>> ==KeyHere==)"""
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 
