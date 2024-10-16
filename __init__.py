@@ -16,22 +16,24 @@ if __name__=="__main__":
     
     
     To.languageTo('pt_BR')
-    # handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
-    handler.getArchive().changeType(keyColumn="DATE", funcProvided=To.Date().to_dd_MM_yyyy_in_full)
+    handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+    # handler.getArchive().changeType(keyColumn="DATE", funcProvided=To.Date().to_dd_MM_yyyy_in_full)
     
     handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
     handler.getArchive().setAdditionalParameters("NAME", "bold", True)
     handler.getArchive().setAdditionalParameters("DATE", "bold", True)
     handler.getArchive().setAdditionalParameters("COUNTRY", 'italic', True)
     
-    print(handler.getArchive().getData())
-    
-    build = Builder(handler.getArchive(), r'e.g/doc.docx')
-    build.generate()
-    build.saveAs(textAtFile='DOCS/{} - Example How-To',
-                 keyColumn=['NAME'], ZipFile=False, 
-                 saveLocally=True)
-    
+    filesToRead = [r'e.g/doc.docx', r'e.g/doc2.docx']
+    possibleFileNames = ['{} Example How-To', 'teste {}']
+    for i in range(len(filesToRead)):
+        build = Builder(handler.getArchive(), filesToRead[i])
+        build.generate()
+        
+        build.saveAs(textAtFile='DOCS/'+possibleFileNames[i],
+                    keyColumn=['NAME'], ZipFile=True, 
+                    saveLocally=True)
+        
     
     # print(handler.getArchive().getData())
     # print('\n')
@@ -40,4 +42,4 @@ if __name__=="__main__":
     
     # print(build.getTimeToGenerate())
     
-    
+    # ARRUMAR ZIP EM LOOP

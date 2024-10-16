@@ -24,6 +24,7 @@ def deltaTime(method):
 
 
 class Builder:
+    ALL_FILES_EVEN_GENERATED=list()
     
     def __init__(self, archive:Archive, baseDocx) -> None:
         self._timeToGenerate:int
@@ -104,7 +105,7 @@ class Builder:
         return d_aux
 
 
-    def _zipFiles(self):
+    def _innerZipFiles(self):
         if self.__archive.getFilesGenerated():
             with zipfile.ZipFile(self.__directoryToAlocateFiles + ".zip", 'w') as zipf:
                 for i, file in enumerate(self.__archive.getFilesGenerated()):
@@ -151,6 +152,7 @@ class Builder:
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             self.__archive.getFilesGenerated().append(doc)
+            Builder.ALL_FILES_EVEN_GENERATED.append(doc)
         
         
     def saveAs(self, textAtFile:str, keyColumn:list[str]=[], ZipFile=False, saveLocally=True):
@@ -169,9 +171,7 @@ class Builder:
                     doc.save(stringBuilder)
             
             if ZipFile:
-                self._zipFiles()
-            
-                
+                self._innerZipFiles()
         else:
             raise RuntimeError('There is no document generated. Should not you generate first?')
     
