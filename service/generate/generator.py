@@ -1,6 +1,5 @@
 import io
 import os
-from pathlib import Path
 import time
 import docx
 import zipfile
