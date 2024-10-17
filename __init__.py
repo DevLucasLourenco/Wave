@@ -31,7 +31,7 @@ if __name__=="__main__":
         build.generate()
         
         build.saveAs(textAtFile='DOCS/'+possibleFileNames[i],
-                    keyColumn=['NAME'], ZipFile=True, 
+                    keyColumn=['NAME'], ZipFile=False, 
                     saveLocally=True)
         
     
