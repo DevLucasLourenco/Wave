@@ -105,22 +105,6 @@ class Builder:
         return d_aux
 
 
-    def _innerZipFiles(self):
-        if self.__archive.getFilesGenerated():
-            with zipfile.ZipFile(self.__directoryToAlocateFiles + ".zip", 'w') as zipf:
-                for i, file in enumerate(self.__archive.getFilesGenerated()):
-                    name = self.__listageStringBuilt[i]
-                    fileInMemory = self.__addToMemoryBuffer(file)
-                    zipf.writestr(name, fileInMemory.getvalue())
-            
-    
-    def __addToMemoryBuffer(self, file):
-        fileInMemory = io.BytesIO()
-        file.save(fileInMemory)
-        fileInMemory.seek(0)
-        return fileInMemory
-        
-    
     def __verifyPossibilityOfDir(self, txt, localSave):
             self.__directoryToAlocateFiles = os.path.dirname(txt)
             if not os.path.exists(self.__directoryToAlocateFiles):
@@ -145,6 +129,22 @@ class Builder:
         return stringBuild
     
       
+    def _innerZipFiles(self):
+        if self.__archive.getFilesGenerated():
+            with zipfile.ZipFile(self.__directoryToAlocateFiles + ".zip", 'a') as zipf:
+                for i, file in enumerate(self.__archive.getFilesGenerated()):
+                    name = self.__listageStringBuilt[i]
+                    fileInMemory = self.__addToMemoryBuffer(file)
+                    zipf.writestr(name, fileInMemory.getvalue())
+            
+    
+    def __addToMemoryBuffer(self, file):
+        fileInMemory = io.BytesIO()
+        file.save(fileInMemory)
+        fileInMemory.seek(0)
+        return fileInMemory
+        
+    
     @deltaTime
     def generate(self):
         self.__archive.getFilesGenerated().clear()
