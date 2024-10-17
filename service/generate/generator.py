@@ -24,7 +24,6 @@ def deltaTime(method):
 
 
 class Builder:
-    ALL_FILES_EVEN_GENERATED=list()
     
     def __init__(self, archive:Archive, baseDocx) -> None:
         self._timeToGenerate:int
@@ -152,7 +151,6 @@ class Builder:
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             self.__archive.getFilesGenerated().append(doc)
-            Builder.ALL_FILES_EVEN_GENERATED.append(doc)
         
         
     def saveAs(self, textAtFile:str, keyColumn:list[str]=[], ZipFile=False, saveLocally=True):
@@ -166,7 +164,6 @@ class Builder:
             for i, doc in enumerate(self.__archive.getFilesGenerated()):
                 stringBuilder = self.__executeStringBuilder(keyColumn, i, textAtFile)
                 self.__verifyPossibilityOfDir(stringBuilder, saveLocally)
-                
                 if saveLocally:
                     doc.save(stringBuilder)
             

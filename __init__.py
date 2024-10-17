@@ -31,7 +31,7 @@ if __name__=="__main__":
         build = Builder(handler.getArchive(), filesToRead[i])
         build.generate()
         
-        build.saveAs(textAtFile='DOCS/'+possibleFileNames[i],
+        build.saveAs(textAtFile=possibleFileNames[i],
                     keyColumn=['NAME'], ZipFile=True, 
                     saveLocally=True)
         
