@@ -1,5 +1,3 @@
-# GODS_310
+# GODS-310
 
-
-GODS
-Gerador Orquestrado de Dados Sistemáticos
+## Gerador Orquestrado de Dados Sistemáticos
