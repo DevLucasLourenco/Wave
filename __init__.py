@@ -35,11 +35,9 @@ if __name__=="__main__":
                     saveLocally=True)
         
     
-    # print(handler.getArchive().getData())
-    # print('\n')
-    # for each, values in handler.getArchive().getData().items():
-    #     print(each, values)
+    print(handler.getArchive().getData())
+    print('\n')
+    for each, values in handler.getArchive().getData().items():
+        print(each, values)
     
-    # print(build.getTimeToGenerate())
-    
-    # ARRUMAR ZIP EM LOOP
+    print(build.getTimeToGenerate())
