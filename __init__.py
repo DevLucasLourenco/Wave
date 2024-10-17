@@ -25,13 +25,13 @@ if __name__=="__main__":
     handler.getArchive().setAdditionalParameters("COUNTRY", 'italic', True)
     
     filesToRead = [r'e.g/doc.docx', r'e.g/doc2.docx']
-    possibleFileNames = ['{} Example How-To', 'teste {}']
+    possibleFileNames = ['{} Example How-To', 'Example {}']
     for i in range(len(filesToRead)):
         build = Builder(handler.getArchive(), filesToRead[i])
         build.generate()
         
         build.saveAs(textAtFile='DOCS/'+possibleFileNames[i],
-                    keyColumn=['NAME'], ZipFile=False, 
+                    keyColumn=['NAME'], ZipFile=True, 
                     saveLocally=True)
         
     

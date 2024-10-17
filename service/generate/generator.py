@@ -177,7 +177,5 @@ class Builder:
     
     
     def getTimeToGenerate(self):
-        if self._timeToGenerate:
-            return self._timeToGenerate
-        
+        return self._timeToGenerate
         
