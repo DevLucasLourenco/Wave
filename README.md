@@ -1,8 +1,5 @@
-# GSDA-310
-GSDA_GODS
+# GODS_310
 
-GSDA
-Gerenciados Sistemizado de Distribuição Automático.
 
 GODS
 Gerador Orquestrado de Dados Sistemáticos
