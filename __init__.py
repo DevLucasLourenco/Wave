@@ -4,6 +4,7 @@ from service.data.handler import DataHandler
 from service.generate.generator import Builder
 
 if __name__=="__main__":
+    # Example 
     # PreRequisitesGODS.VerifyRequirements()
     
     handler = DataHandler(r'e.g/bd.xlsx')
