@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-class PreRequisitesGODS:
+class PreRequisitesWave:
     
     @staticmethod
     def __check_and_install(package_name):
@@ -16,5 +16,3 @@ class PreRequisitesGODS:
         for package in packages:
             cls.__check_and_install(package)
 
-if __name__ == "__main__":
-    PreRequisitesGODS.VerifyRequirements()
