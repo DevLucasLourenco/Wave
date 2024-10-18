@@ -1,3 +1,4 @@
+from copy import deepcopy
 import os
 import json
 import time
@@ -111,7 +112,8 @@ class Archive:
             typeOfValue = type(v[0])
             
             self.__DictWithData.update({k:{'type_column':typeOfValue,
-                                           'data_column':v,
+                                           'original_data':v,
+                                           'data_column':deepcopy(v),
                                            'additional_parameters':{'bold':False,
                                                                     'italic':False,
                                                                     'size':0,
@@ -131,7 +133,7 @@ class Archive:
     def changeType(self, keyColumn:str, funcProvided:To):
         """This function can receive an lambda function to be used. Acess the github to check how to do a personalizad return"""
         
-        for i, obj in enumerate(self.__DictWithData[keyColumn]['data_column']):
+        for i, obj in enumerate(self.__DictWithData[keyColumn]['original_data']):
             self.__DictWithData[keyColumn]['data_column'][i] = funcProvided(obj)
         self.__DictWithData[keyColumn]['type_column'] = type(self.__DictWithData[keyColumn]['data_column'][0])
 

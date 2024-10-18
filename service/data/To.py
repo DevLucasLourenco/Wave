@@ -42,9 +42,7 @@ class DataVerify:
             return decorator
     
 
-class To:
-    """Once changed, you cannot change the same Key"""
-    
+class To:    
     LANG:str=''
     
     @staticmethod
