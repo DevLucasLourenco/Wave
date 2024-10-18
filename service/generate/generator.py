@@ -1,5 +1,6 @@
 import io
 import os
+from pathlib import Path
 import time
 import docx
 import zipfile
@@ -130,7 +131,12 @@ class Builder:
       
     def _innerZipFiles(self):
         if self.__archive.getFilesGenerated():
-            with zipfile.ZipFile(self.__directoryToAlocateFiles + ".zip", 'a') as zipf:
+            try:
+                self.__directoryToAlocateFiles = Path(self.__directoryToAlocateFiles).parts[0]
+            except IndexError:
+                self.__directoryToAlocateFiles = Path(self.__directoryToAlocateFiles)
+                
+            with zipfile.ZipFile(str(self.__directoryToAlocateFiles)+ ".zip", 'a') as zipf:
                 for i, file in enumerate(self.__archive.getFilesGenerated()):
                     name = self.__listageStringBuilt[i]
                     fileInMemory = self.__addToMemoryBuffer(file)

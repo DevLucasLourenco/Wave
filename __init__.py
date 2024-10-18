@@ -27,18 +27,20 @@ if __name__=="__main__":
     
     filesToRead = [r'e.g/doc.docx', r'e.g/doc2.docx']
     possibleFileNames = ['{} Example How-To', 'Example {}']
+    
     for i in range(len(filesToRead)):
         build = Builder(handler.getArchive(), filesToRead[i])
         build.generate()
         
-        build.saveAs(textAtFile=possibleFileNames[i],
-                    keyColumn=['NAME'], ZipFile=True, 
+        build.saveAs(textAtFile="DOCS/{}/"+possibleFileNames[i],
+                    keyColumn=['NAME', 'NAME'], ZipFile=True, 
                     saveLocally=True)
         
     
-    print(handler.getArchive().getData())
-    print('\n')
-    for each, values in handler.getArchive().getData().items():
-        print(each, values)
+    # print(handler.getArchive().getData())
+    # print('\n')
+    # for each, values in handler.getArchive().getData().items():
+    #     print(each, values)
     
-    print(build.getTimeToGenerate())
+    # print(build.getTimeToGenerate())
+    

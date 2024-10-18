@@ -111,6 +111,13 @@ class _Date():
     
     @staticmethod
     @DataVerify.Date.verifyTypeConsistency(pd.Timestamp)
+    def to_dd_mm_yy_periodSep(OBJECT:pd.Timestamp):
+        'dd.mm.yy'
+        yield OBJECT
+        yield OBJECT.strftime('%d.%m.%y')
+    
+    @staticmethod
+    @DataVerify.Date.verifyTypeConsistency(pd.Timestamp)
     def to_dd_MM_yyyy(OBJECT:pd.Timestamp):
         'dd/MM/yyyy'
         yield OBJECT
