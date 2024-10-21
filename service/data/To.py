@@ -179,16 +179,19 @@ class _Hour:
         return OBJECT.strftime('%H:%M:%S')
 
     @staticmethod
+    @DataVerify.Hour.tryToConvertFormat
     def to_hh_mm(OBJECT:datetime):
         'HH:MM'
         return OBJECT.strftime('%H:%M')
 
     @staticmethod
+    @DataVerify.Hour.tryToConvertFormat
     def to_12_hour_format(OBJECT:datetime):
         'HH:MM AM/PM'
         return OBJECT.strftime('%I:%M %p')
 
     @staticmethod
+    @DataVerify.Hour.tryToConvertFormat
     def to_24_hour_format(OBJECT:datetime):
         'HH:MM'
         return OBJECT.strftime('%H:%M')
