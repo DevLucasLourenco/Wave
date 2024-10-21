@@ -30,7 +30,7 @@ class DataHandler:
 
     
     def __caseCSV(self, file):
-        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=self.__sepInCaseOfCSV if self.__sepInCaseOfCSV else ";") ## fazer possíveis escolhas para separador.
+        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=self.__sepInCaseOfCSV if self.__sepInCaseOfCSV else ";")
 
 
     def __caseXLSX(self, file):
