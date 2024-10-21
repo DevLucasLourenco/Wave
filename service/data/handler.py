@@ -3,10 +3,11 @@ import pandas as pd
 from service.data.archive import Archive
 
 
-class DataHandler: # fazer teste de quando nao estiver a mesma quantidade nas colunas do excel o que vai acontecer 
+class DataHandler:
     TYPE_DATA_ALLOWED:dict
     
-    def __init__(self, fileReceived) -> None:
+    def __init__(self, fileReceived, *sepInCaseOfCSV) -> None:
+        self.__sepInCaseOfCSV = sepInCaseOfCSV
         DataHandler.TYPE_DATA_ALLOWED = {'csv':self.__caseCSV,
                                       'xlsx':self.__caseXLSX,
                                       'json':self.__caseJSON}
@@ -29,7 +30,7 @@ class DataHandler: # fazer teste de quando nao estiver a mesma quantidade nas co
 
     
     def __caseCSV(self, file):
-        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=';') ## fazer possíveis escolhas para separador.
+        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=self.__sepInCaseOfCSV if self.__sepInCaseOfCSV else ";") ## fazer possíveis escolhas para separador.
 
 
     def __caseXLSX(self, file):

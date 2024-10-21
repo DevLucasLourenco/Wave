@@ -161,7 +161,7 @@ class _Date():
     def to_personalizedFormat(OBJECT:pd.Timestamp, formatPersonalized:str):
         """Personalized\n\nUse Datetime format. (e.g.: '%d/%B/%Y')\n\nTo use this feature, you must have to follow this logic, e.g.:\n\n
         handler = DataHandler (r'example.xlsx')\n
-        handler.getArchive().changeType(keyColumn="NAME", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))"""
+        handler.getArchive().changeType(keyColumn="TODAY", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))"""
         yield OBJECT
     
         if isinstance(formatPersonalized, str):

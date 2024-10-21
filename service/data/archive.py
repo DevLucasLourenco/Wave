@@ -113,7 +113,7 @@ class Archive:
             
             self.__DictWithData.update({k:{'type_column':typeOfValue,
                                            'original_data':v,
-                                           'data_column':deepcopy(v),
+                                           'data_handled':deepcopy(v),
                                            'additional_parameters':{'bold':False,
                                                                     'italic':False,
                                                                     'size':0,
@@ -131,11 +131,11 @@ class Archive:
         
     
     def changeType(self, keyColumn:str, funcProvided:To):
-        """This function can receive an lambda function to be used. Acess the github to check how to do a personalizad return"""
+        """This function can receive an lambda function to be used."""
         
         for i, obj in enumerate(self.__DictWithData[keyColumn]['original_data']):
-            self.__DictWithData[keyColumn]['data_column'][i] = funcProvided(obj)
-        self.__DictWithData[keyColumn]['type_column'] = type(self.__DictWithData[keyColumn]['data_column'][0])
+            self.__DictWithData[keyColumn]['data_handled'][i] = funcProvided(obj)
+        self.__DictWithData[keyColumn]['type_column'] = type(self.__DictWithData[keyColumn]['data_handled'][0])
 
 
     def getFileType(self) -> str:
@@ -180,7 +180,7 @@ class Archive:
 
             
     def setDelimiter(self, newDelimiter:str):
-        """This function fills both side of the keys. \n\n(e.g.: If you pass '==' as newDelimiter, it becomes >>> ==KeyHere==)"""
+        """This method fills both sides of the keys. \n\n(e.g.: If you pass '==' as newDelimiter, it becomes >>> ==KeyHere==)"""
         self.__Delimiter = str(newDelimiter)
         self.__updateKeyWithDelimiter()
 

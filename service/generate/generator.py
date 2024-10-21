@@ -99,7 +99,7 @@ class Builder:
     def __getRecordsFromSameIndex(self, index) -> dict:
         d_aux=dict()
         for keyHeader in self.__allKeys:
-            information = self.__archive.getData()[keyHeader]['data_column'][index]
+            information = self.__archive.getData()[keyHeader]['data_handled'][index]
             KeyWithDelimiter = self.__archive.getData()[keyHeader]['key_w/Delimiter']
             d_aux.update({KeyWithDelimiter:information})
         return d_aux
@@ -118,7 +118,7 @@ class Builder:
     def __getValuesToStringBuilder(self, keys, index):
         listage = list()
         for k in keys:
-            listage.append(self.__archive.getData()[k]['data_column'][index])
+            listage.append(self.__archive.getData()[k]['data_handled'][index])
         return listage
     
     
@@ -153,7 +153,7 @@ class Builder:
     @deltaTime
     def generate(self):
         self.__archive.getFilesGenerated().clear()
-        for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_column']):
+        for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_handled']):
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             self.__archive.getFilesGenerated().append(doc)
