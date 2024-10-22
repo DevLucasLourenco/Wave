@@ -130,8 +130,16 @@ class Archive:
             self.__DictWithData[k]['key_w/Delimiter'] = self.__wrapWithDelimiter(k)
         
     
-    def changeType(self, keyColumn:str, funcProvided:To):
-        """This function can receive an lambda function to be used."""
+    def transformData(self, keyColumn:str, funcProvided:To):
+        """This function can receive an lambda function to be used. e.g.:\n\n
+        handler = DataHandler(r'e.g/bd.xlsx')\n
+        handler.readFile()\n
+        handler.getArchive().transformData(keyColumn="INFO", funcProvided=lambda x: DoSomething(x))
+        
+        Instead of this, can be used the providade functions in class < To >, check:\n\n
+        handler = DataHandler(r'e.g/bd.xlsx')\n
+        handler.readFile()\n
+        handler.getArchive().transformData("DATE", lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))"""
         
         for i, obj in enumerate(self.__DictWithData[keyColumn]['original_data']):
             self.__DictWithData[keyColumn]['data_handled'][i] = funcProvided(obj)
@@ -154,7 +162,7 @@ class Archive:
         return self.__DesignatedFile
     
 
-    def getData(self) -> dict[int, str]:
+    def getData(self) -> dict:
         if self.__DictWithData:
             return self.__DictWithData
         raise ReferenceError('No Dict Available')

@@ -1,3 +1,6 @@
+from Wave import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
+
+
 if __name__=="__main__":
     # Example 
 
@@ -19,21 +22,32 @@ if __name__=="__main__":
     
     To.languageTo('pt_BR')
     
-    filesToRead = [r'e.g/doc2.docx', r'e.g/doc.docx']
-    possibleFileNames = ['{} Example How-To', 'Example {}']
     
-    for i in range(len(filesToRead)):
-        handler.getArchive().changeType("HOUR", To.Hour().to_hh_mm)
-        handler.getArchive().changeType(keyColumn="DATE", funcProvided=lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
-        # handler.getArchive().changeType(keyColumn="DATE", funcProvided=To.Date().to_dd_MM_yyyy_in_full)
-        # handler.getArchive().changeType("DATE", To.Date().to_dd_mm_yyyy)
+    request={0:{'filesToRead':r'e.g/doc2.docx',
+                'fileRename':'FirstExampleWithValue - {}',
+                'formatKeys':['NAME']
+                },
+             
+            1:{'filesToRead':r'e.g/doc.docx',
+                'fileRename':'{} - {} - SecondExampleWithAlotData {}',
+                'formatKeys':['DATE','NAME', 'COUNTRY']
+                },
+        }
+    
+    for i in range(len(request)):
+        handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
+        handler.getArchive().transformData("DATE", lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+        # handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yyyy)
         
-        build = Builder(handler.getArchive(), filesToRead[i])
+        build = Builder(handler.getArchive(), request[i]['filesToRead'])
         build.generate()
         
-        handler.getArchive().changeType("DATE", To.Date().to_dd_mm_yy_periodSep)
-        build.saveAs(textAtFile="DOCS/{}/"+possibleFileNames[i],
-                    keyColumn=['DATE', 'NAME'], ZipFile=True, 
+        handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yy_periodSep)
+        keysFormatting = request[i]['formatKeys']
+        keysFormatting.insert(0, 'DATE')
+        
+        build.saveAs(textAtFile="DOCS/{}/"+request[i]['fileRename'],
+                    keyColumn=keysFormatting, ZipFile=True, 
                     saveLocally=True)
     
     
