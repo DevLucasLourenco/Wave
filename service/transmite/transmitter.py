@@ -4,16 +4,16 @@ import openpyxl
 class Transmitter:
     "Scrolls through the provided files and find the keys. Sequentially creates a .xlsx file with those keys as columns"
     
-    def __init__(self, docFiles, delimiter):
-        self.docFiles = docFiles
+    def __init__(self, docFiles:list['str'], delimiter:str):
+        self.__docFiles = docFiles
         self.__delimiter = delimiter
-        self.keys = list()
+        self.__keys = list()
         
-        self.extractKeys()
+        self.__extractKeys()
         
         
-    def extractKeys(self):
-        for docFile in self.docFiles:
+    def __extractKeys(self):
+        for docFile in self.__docFiles:
             doc = docx.Document(docFile)
             for para in doc.paragraphs:
                 text = para.text 
@@ -27,14 +27,14 @@ class Transmitter:
                     if endPos == -1:
                         break
                     key = text[startPos + len(self.__delimiter):endPos]
-                    self.keys.append(key) if key not in self.keys else ...
+                    self.__keys.append(key) if key not in self.__keys else ...
                     startPos = endPos + len(self.__delimiter)
                 
                 
     def export(self, outputFile):
-        if self.keys:
+        if self.__keys:
             workbook = openpyxl.Workbook()
             sheet = workbook.active
-            sheet.append(self.keys)
+            sheet.append(self.__keys)
             workbook.save(outputFile)
         
