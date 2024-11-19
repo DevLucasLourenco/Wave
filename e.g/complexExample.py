@@ -1,4 +1,4 @@
-from Wave import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
+from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 
 
 if __name__=="__main__":
