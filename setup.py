@@ -12,7 +12,7 @@ setup(
     long_description_content_type="text/markdown",
     author_email="dev.lucaslourenco@gmail.com",
     keywords="wave build docx treatdata xlsx to word waveflow wave-flow",
-    description="Wave - Workflow Automation and Versatile Engine",
+    description="WAVE - Workflow Automation and Versatile Engine",
     packages=find_packages(),
     install_requires=["python-docx", "openpyxl", "pandas"],
 )
