@@ -27,6 +27,7 @@ def deltaTime(method):
 class Builder:
     
     def __init__(self, archive:Archive, baseDocx) -> None:
+        self.__indexSequence = 0
         self._timeToGenerate:int
         self.__archive = archive
         self.__baseDocx = docx.Document(baseDocx)
@@ -152,11 +153,13 @@ class Builder:
     
     @deltaTime
     def generate(self):
+        self.__indexSequence = 0
         self.__archive.getFilesGenerated().clear()
         for i, _ in enumerate(self.__archive.getData()[self.__firstKey]['data_handled']):
             allRecordsFromIndex = self.__getRecordsFromSameIndex(i)
             doc = self.__replaceInfosAtDoc(allRecordsFromIndex)
             self.__archive.getFilesGenerated().append(doc)
+            self.__indexSequence += 1
         
         
     def saveAs(self, textAtFile:str, keyColumn:list[str]=[], ZipFile=False, saveLocally=True):
@@ -179,6 +182,10 @@ class Builder:
             raise RuntimeError('There is no document generated. Should not you generate first?')
     
     
-    def getTimeToGenerate(self):
+    def getTimeToGenerate(self) -> int:
         return self._timeToGenerate
+    
+    
+    def getIndexSequence(self) -> int:
+        return self.__indexSequence
         
