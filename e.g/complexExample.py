@@ -1,6 +1,5 @@
 from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 
-
 if __name__=="__main__":
     # Example 
 

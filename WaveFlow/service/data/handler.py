@@ -1,6 +1,6 @@
 import pandas as pd
 
-from service.data.archive import Archive
+from WaveFlow.service.data.archive import Archive
 
 
 class DataHandler:
@@ -11,17 +11,17 @@ class DataHandler:
         DataHandler.TYPE_DATA_ALLOWED = {'csv':self.__caseCSV,
                                       'xlsx':self.__caseXLSX,
                                       'json':self.__caseJSON}
-        self.__fileReceived = Archive(fileReceived)
+        self.fileReceived = Archive(fileReceived)
         self.__dtypeToPD:dict={}
 
 
     def readFile(self):
-        typeOf = self.__fileReceived.getFileType()
+        typeOf = self.fileReceived.getFileType()
         
         if typeOf in DataHandler.TYPE_DATA_ALLOWED.keys():
-            self.__fileReceived.setDataframe(
+            self.fileReceived.setDataframe(
                 DataHandler.TYPE_DATA_ALLOWED[typeOf](
-                    self.__fileReceived.getDesignatedFile()
+                    self.fileReceived.getDesignatedFile()
                     )
                 )
             
@@ -42,7 +42,7 @@ class DataHandler:
     
         
     def getArchive(self) -> Archive:
-        return self.__fileReceived
+        return self.fileReceived
     
     
     def setDtype(self, dtype:dict):

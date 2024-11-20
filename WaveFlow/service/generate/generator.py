@@ -10,7 +10,7 @@ from copy import deepcopy
 from docx.shared import Pt
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
 
-from service.data.archive import Archive
+from WaveFlow.service.data.archive import Archive
 
 
 

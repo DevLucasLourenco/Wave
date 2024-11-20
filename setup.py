@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as arq:
 
 setup(
     name="wave-flow",
-    version="1.0.5",
+    version="1.0.6",
     license="MIT License",
     author="Lucas Lourenço",
     long_description=readme,
@@ -13,11 +13,12 @@ setup(
     author_email="dev.lucaslourenco@gmail.com",
     keywords="wave build docx treatdata xlsx to word waveflow wave-flow",
     description="WAVE - Workflow Automation and Versatile Engine",
-    packages=['WaveFlow', 
-              'WaveFlow/preRequisite',
-              'WaveFlow/service/data',
-              'WaveFlow/service/generate',
-              'WaveFlow/service/generate',
-              'WaveFlow/service/transmite'],
-    install_requires=["python-docx", "openpyxl", "pandas"],
+    packages=['WaveFlow',
+            'WaveFlow/preRequisite',
+            'WaveFlow/service/data',
+            'WaveFlow/service/generate',
+            'WaveFlow/service/transmite'],
+    install_requires=["python-docx",
+                      "openpyxl",
+                      "pandas"],
 )
