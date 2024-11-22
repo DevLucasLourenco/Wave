@@ -5,9 +5,9 @@ if __name__=="__main__":
 
     # PreRequisitesGODS.VerifyRequirements()
     
-    handler = DataHandler(r'e.g/bd.xlsx')
-    # handler = DataHandler(r'e.g/bd.csv', ";")
-    # handler = DataHandler(r'e.g/bd.json')
+    handler = DataHandler(r'e.g/complex/bd.xlsx')
+    # handler = DataHandler(r'e.g/complex/bd.csv', ";")
+    # handler = DataHandler(r'e.g/complex/bd.json')
     
     handler.getArchive().setDelimiter('==')
     handler.setDtype({"CPF":str, "DATA":str})
@@ -22,12 +22,12 @@ if __name__=="__main__":
     To.languageTo('pt_BR')
     
     
-    request={0:{'filesToRead':r'e.g/doc2.docx',
+    request={0:{'filesToRead':r'e.g/complex/doc2.docx',
                 'fileRename':'FirstExampleWithValue - {}',
                 'formatKeys':['NAME']
                 },
              
-            1:{'filesToRead':r'e.g/doc.docx',
+            1:{'filesToRead':r'e.g/complex/doc.docx',
                 'fileRename':'{} - {} - SecondExampleWithAlotData {}',
                 'formatKeys':['DATE','NAME', 'COUNTRY']
                 },
@@ -61,6 +61,6 @@ if __name__=="__main__":
     
     #----
     ### Creates a .xlsx with the analysed data from .docx
-    doc_files = ["e.g/doc.docx", "e.g/doc2.docx"] 
+    doc_files = ["e.g/complex/doc.docx", "e.g/complex/doc2.docx"] 
     transmitter = Transmitter(doc_files, '==')
     transmitter.export("exampleExport.xlsx")

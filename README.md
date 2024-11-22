@@ -14,27 +14,49 @@
 # Getting Started on WAVE
 To use WAVE, execute the following command in your terminal
 
-```pip install -U wave-flow```
---
-# Exemples
+#### ```pip install -U wave-flow```
+
+
+
+# Examples
 
 <details open>
 <summary>
- Practical Exemples
+Practical Examples
 </summary>
 
 <p>
 
- - [Simple e.g.]()
+ - [Simple e.g.](e.g/simple/simpleExample.py)
  
- - [Complex e.g.](e.g/complexExample.py)
+ - [Complex e.g.](e.g/complex/complexExample.py)
 
 </p>
+</details>
 
+
+<details open>
+<summary>
+Class Use Case Example
+</summary>
+
+<p>
+
+ - [DataHandler]()
+ //(levar para uma guia aq do markdown)
+
+ - [Builder]()
+ 
+ - [To]()
+ 
+ - [Transmitter]()
+
+
+</p>
 </details>
 
 ---
 
-# Tutorial
+# How To Use
 
 
