@@ -10,10 +10,3 @@ build.generate()
 
 build.saveAs('{} - Document', 
              keyColumn=['NAME'])
-
-print(handler.getArchive().getData())
-print('\n')
-for each, values in handler.getArchive().getData().items():
-    print(each, values)
-
-print(build.getTimeToGenerate())
