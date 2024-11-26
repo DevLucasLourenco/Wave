@@ -54,20 +54,57 @@ Class Use Case Example
 </p>
 </details>
 
+
 ---
 
 # How To Use
 
+
 ## | **DataHandler**
+The `DataHandler` class is the first step when you're using WAVE. Using it, you become able to use several features, including the unique way to reach `Archive` class (as shown in the next topic). Below are the methods and it's explication.
+
+
+
+
+> * #### **DTYPE**<p>
+As [Pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dtypes.html), you can pass a _DType_ as parameter. The _KEYS_ on this dict must have to be one of the Headers at the column that you want to perform the read as the _VALUE_ data.
+
+e.g.:
+```python
+handler = DataHandler(r'example.xlsx')
+handler.getArchive().setDelimiter('==') # important part of the code that will be shown below.
+handler.setDtype({"ID":str, "DATE":str})
+```
+
+> * #### **ACESS ARCHIVE**<p>
+To acess the class [Archive](#-archive), the unique way to reach it is using the code below.
+
+e.g.:
+```python
+handler = DataHandler(r'example.xlsx')
+handler.getArchive() # and it's methods as shown
+```
+
+
+> * #### **READ FILE**<p>
+After informate the [Delimiter](#-delimiter), and if you think it's necessary, inform the [Dtype](#dtype), you have to read.
+
+e.g.:
 ```python
 from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 
-handler = DataHandler(r'bd.xlsx')
+handler = DataHandler(r'example.xlsx')
 handler.getArchive().setDelimiter('==')
+handler.setDtype({"ID":str, "DATE":str})
 handler.readFile()
 
 print(handler.getArchive().getData()) # -> dict
 ```
+
+## | **Archive**
+
+> ### | DELIMITER
+
 
 ## | **Builder**
 
@@ -80,7 +117,8 @@ The `To` class provides multiple utilities for transforming dates, times, and mo
 
 ---
 
-### **1. Language Configuration**
+
+> ### **1. Language Configuration**
 ***Before*** using the `Date`, `Hour`, or `Money` utilities, you can set the language using the `To.languageTo()` method.
 
 #### **Languages Supported**
@@ -88,7 +126,7 @@ The `To` class provides multiple utilities for transforming dates, times, and mo
 - `'es_ES'` - Spanish
 - `'en_US'` - English
 - `'fr_FR'` - French
-- You can use another language too.
+- You can use another language which `locale` can handle.
 
 #### **Example**
 ```python
@@ -105,7 +143,7 @@ handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
 
 ---
 
-### **2. Date Manipulation**
+> ### **2. Date Manipulation**
 The `To.Date()` provides various methods to handle and transform date objects.
 
 #### **Available Methods**
@@ -137,11 +175,11 @@ handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yy_periodSep)
 ```
 * **to_personalizedFormat**:
 
-    It's an exclusive method in < To > that provides a personalization about data been treated
+    It's an exclusive method in < To > class that provides a personalization about data been treated. You can use the same `.strftime()` as [used on pandas](https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.strftime.html).
 ```python
 [...]
 
-handler.getArchive().transformData("DATE", lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+handler.getArchive().transformData("DATE",lambda x:To.Date().to_personalizedFormat(x,'%d de %B de %Y'))
 
 [...]
 ```
@@ -149,7 +187,7 @@ handler.getArchive().transformData("DATE", lambda x: To.Date().to_personalizedFo
 
 ---
 
-### **3. Time Manipulation**
+> ### **3. Time Manipulation**
 The `To.Hour()` provides methods for transforming time objects into desired formats.
 
 #### **Available Methods**
@@ -175,7 +213,9 @@ handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
 
 ---
 
-### **4. Money Formatting Manipulation**
+
+
+> ### **4. Money Formatting Manipulation**
 The `To.Money()` provides methods for formatting monetary values into various currencies.
 
 #### **Available Methods**
