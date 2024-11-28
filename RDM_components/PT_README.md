@@ -2,8 +2,8 @@
 > # Workflow Automation and Versatile Engine
 
 
-<div align=“center”>
-<img src="RDM_components/img/wave.jpeg" alt=“WAVE” width=“450px”/>
+<div align="center">
+<img src="img/wave.jpeg" alt="WAVE" width="450px"/>
 </div>
 
 > Propriedade de Lucas Lourenço

@@ -10,7 +10,7 @@
 
 > Maintained by Lucas Lourenço
 
-> Translation to [Portuguese](/RDM_components/PT_README/PT_README.md)
+> Translation to [Portuguese](/RDM_components/PT_README.md)
 ----
 
 # Getting Started on WAVE
