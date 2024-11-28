@@ -3,7 +3,7 @@
 
 
 <div align=“center”>
-<img src=“RDM_components/img/wave.jpeg” alt=“WAVE” width=“450px”/>
+<img src="RDM_components/img/wave.jpeg" alt=“WAVE” width=“450px”/>
 </div>
 
 > Propriedade de Lucas Lourenço
@@ -18,7 +18,7 @@ Para usar WAVE, execute o comando abaixo no seu terminal.
 
 
 
-# Examples
+# Exemplos
 
 <details open>
 <summary>
@@ -57,7 +57,7 @@ Exemplo de Uso das Classes
 
 ---
 
-# How To Use
+# Como Usar
 
 
 ## | **DataHandler**
