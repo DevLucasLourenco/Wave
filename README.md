@@ -64,8 +64,6 @@ Class Use Case Example
 The `DataHandler` class is the first step when you're using WAVE. Using it, you become able to use several features, including the unique way to reach `Archive` class (as shown in the next topic). Below are the methods and it's explication.
 
 
-
-
 * #### **DType**
 >As [Pandas](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dtypes.html), you can pass a _DType_ as parameter. The _KEYS_ on this dict must have to be one of the Headers at the column that you want to perform the read as the _VALUE_ data.
 
@@ -102,31 +100,89 @@ print(handler.getArchive().getData()) # -> dict
 ```
 
 ## | **Archive**
-After being accessed by the method in [DataHandler](#-datahandler), you can manage a lot of data informations. Which them gonna be expressed below.
+After being accessed by the method in [DataHandler (Acess Archive)](#acess-archive), you can manage a lot of data informations. Which them gonna be expressed below.
 
 * ### **Delimiter**
+One of the most important part of the orchestra. It's necessary and primordial to identify where the placeholders are.
+
+e.g.:
+```python
+from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
+
+handler = DataHandler(r'example.xlsx')
+handler.getArchive().setDelimiter('==')
+
+[...]
+
+```
+
+
+* ### **Transform Data**
+This method cooperate with [To](#-to) class. To handle data, `To` has a lot of management about it. You can read more about it [clicking here](#-to).
+Following the harmony of the structure, it is appropriate that you use this method to process any type of data.
+
+e.g.:
+```python
+handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
+handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yyyy)
+handler.getArchive().transformData("FINALDATE", lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+```
+
 
 
 * ### **Additional Parameter**
+Using this method, you can personalize formatting configurations to each info which will be placed.
+Assuming those obrigatory parameters `keyColumn`, `parameterToChange`, `newValueToParameter`, pay attention to the required data below.
+
+| **possibilities**           | **appropriate data type**    | 
+|-----------------------------|------------------------------|
+| bold                        | bool                         |
+| italic                      | bool                         |
+| font                        | string                       |
+| size                        | int                          |
+
+
+`keyColumn`: Place here the header which you want to operate.
+
+`parameterToChange`: Select one of the four possibility.
+
+`newValueToParameter`: place the proper data to what you wanna format.
+
+e.g.:
+```python
+from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
+
+    handler = DataHandler(r'example.xlsx')
+    
+    handler.getArchive().setDelimiter('==')
+    handler.readFile()
+    
+    handler.getArchive().setAdditionalParameters("NAME", "size", 12)
+    handler.getArchive().setAdditionalParameters("NAME", "bold", True)
+    handler.getArchive().setAdditionalParameters("COUNTRY", 'italic', True)
+    handler.getArchive().setAdditionalParameters("DATE", "font", 'Times New Roman')
+    
+    [...]
+
+```
+
+<!-- 
+   def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "italic", "bold"], newValueToParameter):
+        self.__DictWithData[keyColumn]['additional_parameters'][parameterToChange] = newValueToParameter -->
 
 
 * ### **Getters**
 
 | **Method Name**              | **Return Type**         | **Description**                                                                 |
 |------------------------------|-------------------------|---------------------------------------------------------------------------------|
+| `getData()`                  | `dict`                 | Returns the data dictionary, raises `ReferenceError` if no data is available. **(maybe it's what you're looking for)**|
 | `getFileType()`              | `str`                  | Returns the file type of the archive.                                          |
 | `getMetaData()`              | `list[str]`            | Returns a list of metadata associated with the file.                           |
-| `getFilename()`              | `str`                  | Retrieves the name of the file.                                                |
+| `getFilename()`              | `str`                  | Returns the name of the file.                                                |
 | `getDesignatedFile()`        | `docx.Document`        | Returns the designated file object.                                            |
-| `getData()`                  | `dict`                 | Retrieves the data dictionary, raises `ReferenceError` if no data is available.|
 | `getDataFrame()`             | `pd.DataFrame`         | Returns the data as a DataFrame, raises `ReferenceError` if no DataFrame exists.|
-| `setDataframe(df)`           | `pandas.DataFrame`      | Sets the data as a DataFrame and converts it into a dictionary internally.      |
 | `getDelimiter()`             | `str`                  | Returns the current delimiter used for key formatting.                         |
 | `getFilesGenerated()`        | `list[docx.Document]`  | Returns a list of files generated by the system.                               |
-
-
-<!-- 
-| `setAdditionalParameters(keyColumn, parameterToChange, newValueToParameter)` | `None` | Sets additional formatting parameters for a specific key column.              | -->
 
 
 ---
@@ -360,4 +416,16 @@ handler.getArchive().transformData("VALUE", To.Money().to_brl)
 ---
 
 ## | **Transmitter**
+This class could be the first step for your usage on WAVE, because it can analyse a .docx and return a .xlsx file with all headers which where defined at docx.
+
+Everything you need to do is informate the document (it **must have** to be a list) and pass the delimiter. After that, just use the method `export`.
+Follow the example:
+
+```python
+from WaveFlow import Transmitter
+
+transmitter = Transmitter(['example.xlsx'], '==')
+transmitter.export("exampleExport.xlsx")
+
+```
 
