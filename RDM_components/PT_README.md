@@ -71,7 +71,7 @@ Por exemplo:
 ```python
 handler = DataHandler(r'example.xlsx')
 handler.getArchive().setDelimiter('==') # parte importante do código que será mostrado abaixo.
-handler.setDtype({“ID”:str, “DATE”:str})
+handler.setDtype({"ID":str, "DATE":str})
 ```
 
 
@@ -94,7 +94,7 @@ from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 
 handler = DataHandler(r'example.xlsx')
 handler.getArchive().setDelimiter('==')
-handler.setDtype({“ID”:str, “DATE”:str})
+handler.setDtype({"ID":str, "DATE":str})
 handler.readFile()
 
 print(handler.getArchive().getData()) # -> dict
@@ -119,22 +119,27 @@ handler.getArchive().setDelimiter('==')
 
 
 * ### **Transformar dados**
+`handler.getArchive().transformData()`
 Esse método coopera com a classe [To](#-to). Para lidar com os dados, a classe `To` tem uma série de gerenciamentos sobre ela. Você pode ler mais sobre isso [clicando aqui](#-to).
 
 Seguindo a harmonia da estrutura, é apropriado que você use esse método para processar qualquer tipo de dados.
+
+Os parâmetros 
 
 
 
 Por exemplo:
 ```python
-handler.getArchive().transformData(“HOUR”, To.Hour().to_hh_mm)
-handler.getArchive().transformData(“DATE”, To.Date().to_dd_mm_yyyy)
-handler.getArchive().transformData(“FINALDATE”, lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
+handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
+handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yyyy)
+handler.getArchive().transformData("FINALDATE", lambda x: To.Date().to_personalizedFormat(x, '%d de %B de %Y'))
 ```
 
 
 
-* ### **Parâmetro adicional**
+* ### **Parâmetros adicionais**
+`handler.getArchive().setAdditionalParameters()`
+
 Usando esse método, você pode personalizar as configurações de formatação para cada informação que será colocada.
 Assumindo os parâmetros obrigatórios `keyColumn`, `parameterToChange`, `newValueToParameter`, preste atenção aos dados necessários abaixo.
 
@@ -162,17 +167,17 @@ from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
     handler.readFile()
     
 
-    handler.getArchive().setAdditionalParameters(“NAME”, “size”, 12)
-    handler.getArchive().setAdditionalParameters(“NAME”, “bold”, True)
-    handler.getArchive().setAdditionalParameters(“COUNTRY”, 'italic', True)
-    handler.getArchive().setAdditionalParameters(“DATE”, “font”, 'Times New Roman')
+    handler.getArchive().setAdditionalParameters("NAME", "size", 12)
+    handler.getArchive().setAdditionalParameters("NAME", "bold", True)
+    handler.getArchive().setAdditionalParameters("COUNTRY", 'italic', True)
+    handler.getArchive().setAdditionalParameters("DATE", "font", 'Times New Roman')
     
     [...]
 
 ```
 
 <!-- 
-   def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal[“font”, “size”, “italic”, “bold”], newValueToParameter):
+   def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "italic", "bold"], newValueToParameter):
         self.__DictWithData[keyColumn]['additional_parameters'][parameterToChange] = newValueToParameter -->
 
 
@@ -192,7 +197,7 @@ from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 
 ---
 ## | **Builder**
-A classe `Builder` requer apenas dois parâmetros obrigatórios. São eles a _instância_ do Archive, o que significa que você **tem** que informar “handler.getArchive()” como primeiro parâmetro (parâmetro archive). Como segundo, você deve informar o documento base (parâmetro baseDocx) com o qual deseja lidar.
+A classe `Builder` requer apenas dois parâmetros obrigatórios. São eles a _instância_ do Archive, o que significa que você **tem** que informar "handler.getArchive()" como primeiro parâmetro (parâmetro archive). Como segundo, você deve informar o documento base (parâmetro baseDocx) com o qual deseja lidar.
 
 Por exemplo:
 ```python
@@ -253,8 +258,8 @@ Esse método tem várias formas de personalização. Abaixo você encontrará in
 - **textAtFile**
 
 >Esse é o nome do padrão do arquivo que será gerado. <p>
-Como, por exemplo: “ {} - Documento Gerado - {}”. <p>
-O “{}” na string está presente porque você pode personalizar a saída com o próximo parâmetro - keyColumn
+Como, por exemplo: " {} - Documento Gerado - {}". <p>
+O "{}" na string está presente porque você pode personalizar a saída com o próximo parâmetro - keyColumn
 
 
 - keyColumn**
@@ -278,7 +283,7 @@ handler.readFile()
 build = Builder(handler.getArchive(), r'example.docx')
 build.generate()
 
-build.saveAs(textAtFile=“DOCS/{}/{} - Document”,
+build.saveAs(textAtFile="DOCS/{}/{} - Document",
                     keyColumn=['Date', 'Name'], 
                     ZipFile=True, 
                     saveLocally=True)
@@ -318,7 +323,7 @@ from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
 [...]
 
 To.languageTo('pt_BR') # Define o idioma como português
-handler.getArchive().transformData(“HOUR”, To.Hour().to_hh_mm)
+handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
 
 [...]
 ```
@@ -353,7 +358,7 @@ O `To.Date()` fornece vários métodos para manipular e transformar objetos de d
 ```python
 [...]
 
-handler.getArchive().transformData(“DATE”, To.Date().to_dd_mm_yy_periodSep)
+handler.getArchive().transformData("DATE", To.Date().to_dd_mm_yy_periodSep)
 
 [...]
 ```
@@ -363,7 +368,7 @@ handler.getArchive().transformData(“DATE”, To.Date().to_dd_mm_yy_periodSep)
 ```python
 [...]
 
-handler.getArchive().transformData(“DATE”,lambda x:To.Date().to_personalizedFormat(x,'%d de %B de %Y'))
+handler.getArchive().transformData("DATE",lambda x:To.Date().to_personalizedFormat(x,'%d de %B de %Y'))
 
 [...]
 ```
@@ -387,7 +392,7 @@ O `To.Hour()` fornece métodos para transformar objetos de tempo em formatos des
 [...]
 
 To.languageTo('pt_BR')
-handler.getArchive().transformData(“HOUR”, To.Hour().to_hh_mm)
+handler.getArchive().transformData("HOUR", To.Hour().to_hh_mm)
 
 [...]
 ```
@@ -413,7 +418,7 @@ O `To.Money()` fornece métodos para formatar valores monetários em várias moe
 [...]
 
 To.languageTo('pt_BR')
-handler.getArchive().transformData(“VALUE”, To.Money().to_brl)
+handler.getArchive().transformData("VALUE", To.Money().to_brl)
 
 [...]
 ```
@@ -430,6 +435,6 @@ Siga o exemplo:
 from WaveFlow import Transmitter
 
 transmitter = Transmitter(['example.xlsx'], '==')
-transmitter.export(“exampleExport.xlsx”)
+transmitter.export("exampleExport.xlsx")
 
 ```
