@@ -11,8 +11,18 @@ class Request:
 
 
 
-request1 = Request(r'e.g\complex\doc.docx', 'D1/{} - Example 1', ['NAME'], True, True)
-request2 = Request(r'e.g\complex\doc2.docx', 'D2/{} - {} - Example 2', ['COUNTRY', 'NAME'], True, True)
+request1 = Request(filePath=r'e.g\complex\doc.docx', 
+                   filename='D1/{} - Example 1', 
+                   formatKey=['NAME'], 
+                   zipFile=	True, 
+                   saveLocally=True)
+
+request2 = Request(filePath=r'e.g\complex\doc2.docx',
+                   filename='D2/{} - {} - Example 2',
+                   formatKey=['COUNTRY', 'NAME'],
+                   zipFile=	True, 
+                   saveLocally=True)
+
 requestListage = [request1, request2]
 
 

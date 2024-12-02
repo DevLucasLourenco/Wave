@@ -29,9 +29,11 @@ Practical Examples
 
 <p>
 
- - [Simple e.g.](e.g/simple/simpleExample.py)
+ - [Simple Example](e.g/simple/simpleExample.py)
  
- - [Complex e.g.](e.g/complex/complexExample.py)
+ - [Complex Example](e.g/complex/complexExample.py)
+
+ - [Complex Example With Classes](e.g/complexWithClass/complexExample2.py)
 
 </p>
 </details>
