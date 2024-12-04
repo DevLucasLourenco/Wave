@@ -30,11 +30,12 @@ class DataHandler:
 
     
     def __caseCSV(self, file):
-        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=self.__sepInCaseOfCSV if self.__sepInCaseOfCSV else ";")
+        separator = self.__sepInCaseOfCSV if self.__sepInCaseOfCSV else ";"
+        return pd.read_csv(file, dtype=self.__dtypeToPD, sep=separator)
 
 
     def __caseXLSX(self, file):
-        return pd.read_excel(file, dtype=self.__dtypeToPD)
+        return pd.read_excel(file, dtype=self.__dtypeToPD, sheet_name=0)
 
 
     def __caseJSON(self, file):
