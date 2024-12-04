@@ -116,6 +116,7 @@ class Archive:
                                            'data_handled':deepcopy(v),
                                            'additional_parameters':{'bold':False,
                                                                     'italic':False,
+                                                                    'centralize':False,
                                                                     'size':0,
                                                                     'font':'',
                                                                     },
@@ -193,5 +194,5 @@ class Archive:
         self.__updateKeyWithDelimiter()
 
 
-    def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "italic", "bold"], newValueToParameter):
+    def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "centralize", "italic", "bold"], newValueToParameter):
         self.__DictWithData[keyColumn]['additional_parameters'][parameterToChange] = newValueToParameter

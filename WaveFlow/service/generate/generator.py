@@ -66,7 +66,10 @@ class Builder:
                                 
                             if additional_params['italic']:
                                 run.italic = True
-                
+
+                            if additional_params['centralize']:
+                                para.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+    
     
     def __table(self, records:dict, doc_base:docx.Document):
         for table in doc_base.tables:
@@ -92,6 +95,9 @@ class Builder:
                                     if additional_params['italic']:
                                         run.italic = True
 
+                                    if additional_params['centralize']:
+                                        para.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+                                        
                                                 
     def __getPrimaryKeyFromKeyWDelimiter(self, KeyWDelimiter:str):
             return KeyWDelimiter.strip(self.__archive.getDelimiter())
