@@ -89,7 +89,9 @@ handler.getArchive() # and it's methods as shown
 
 
 * #### **Read File**
->After informate the [Delimiter](#-delimiter), and if you think it's necessary, inform the [Dtype](#dtype), you have to read the file.
+>After informate the [Delimiter](#-delimiter), and if you think it's necessary, inform the [Dtype](#dtype), you have to read the file.<p>
+You can only read `xlsx`, `csv` and `json`
+
 
 e.g.:
 ```python
