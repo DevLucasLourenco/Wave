@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as arq:
 
 setup(
     name="wave-flow",
-    version="1.1.0",
+    version="1.1.1",
     license="MIT License",
     author="Lucas Lourenço",
     long_description=readme,
