@@ -196,3 +196,9 @@ class Archive:
 
     def setAdditionalParameters(self, keyColumn:str, parameterToChange:Literal["font", "size", "centralize", "italic", "bold"], newValueToParameter):
         self.__DictWithData[keyColumn]['additional_parameters'][parameterToChange] = newValueToParameter
+    
+    
+    def setAdditionalParametersForAll(self, parameterToChange:Literal["font", "size", "centralize", "italic", "bold"], newValueToParameter):
+        allKeys = self.__DictWithData.keys()
+        for key in allKeys:
+            self.setAdditionalParameters(key, parameterToChange, newValueToParameter)

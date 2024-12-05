@@ -137,6 +137,8 @@ handler.getArchive().transformData("FINALDATE", lambda x: To.Date().to_personali
 
 
 * ### **Additional Parameter**
+`setAdditionalParameters`
+
 Using this method, you can personalize formatting configurations to each info which will be placed.
 Assuming those obrigatory parameters `keyColumn`, `parameterToChange`, `newValueToParameter`, pay attention to the required data below.
 
@@ -169,6 +171,25 @@ from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
     handler.getArchive().setAdditionalParameters("DATE", "font", 'Times New Roman')
     
     [...]
+
+```
+OR `setAdditionalParametersForAll`<p>
+
+This method implements for all headers the same configuration.
+
+e.g.:
+```python
+from WaveFlow import (PreRequisitesWave, To, DataHandler, Builder, Transmitter)
+
+    handler = DataHandler(r'example.xlsx')
+    
+    handler.getArchive().setDelimiter('==')
+    handler.readFile()
+    
+    handler.getArchive().setAdditionalParametersForAll("centralize", True)
+    
+    [...]
+
 
 ```
 
